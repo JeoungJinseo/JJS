@@ -847,7 +847,7 @@ a {
   --pointer-x: 0px;
   --pointer-y: 0px;
   position: relative;
-  min-height: 3400px;
+  min-height: 2700px;
   overflow: hidden;
   background:
     radial-gradient(circle at 50% 12%, rgba(55, 90, 122, 0.3), transparent 25%),
