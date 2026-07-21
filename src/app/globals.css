@@ -148,11 +148,11 @@ a {
 .chrome-hello-reveal::after {
   position: absolute;
   inset: 8% auto 8% -18%;
-  width: 12%;
+  width: 7%;
   transform: skewX(-17deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
   mix-blend-mode: screen;
-  filter: blur(7px);
+  filter: blur(10px);
   content: "";
   animation: hello-sheen 5.5s ease-in-out 4.2s infinite;
 }
@@ -250,10 +250,10 @@ a {
     opacity: 0;
   }
   68% {
-    opacity: 0.82;
+    opacity: 0.35;
   }
   86% {
-    opacity: 0.72;
+    opacity: 0.24;
   }
   100% {
     left: 108%;
