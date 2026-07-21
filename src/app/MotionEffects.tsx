@@ -41,6 +41,9 @@ export default function MotionEffects() {
     const tiltTargets = Array.from(
       document.querySelectorAll<HTMLElement>("[data-tilt]"),
     );
+    const ambientTargets = Array.from(
+      document.querySelectorAll<HTMLElement>(".ambient-sculpture"),
+    );
     let animationFrame = 0;
 
     const updateParallax = () => {
@@ -101,9 +104,34 @@ export default function MotionEffects() {
       };
     });
 
+    const handleDiscoveryPointer = (event: PointerEvent) => {
+      if (!discoveries) return;
+      const x = event.clientX / window.innerWidth - 0.5;
+      const y = event.clientY / window.innerHeight - 0.5;
+      const factors = [-34, 48, -58];
+
+      ambientTargets.forEach((target, index) => {
+        const factor = factors[index] ?? 32;
+        target.style.setProperty("--depth-x", `${x * factor}px`);
+        target.style.setProperty("--depth-y", `${y * Math.abs(factor) * 0.72}px`);
+      });
+    };
+
+    const resetDiscoveryPointer = () => {
+      ambientTargets.forEach((target) => {
+        target.style.setProperty("--depth-x", "0px");
+        target.style.setProperty("--depth-y", "0px");
+      });
+    };
+
+    discoveries?.addEventListener("pointermove", handleDiscoveryPointer);
+    discoveries?.addEventListener("pointerleave", resetDiscoveryPointer);
+
     return () => {
       observer.disconnect();
       tiltCleanups.forEach((cleanup) => cleanup());
+      discoveries?.removeEventListener("pointermove", handleDiscoveryPointer);
+      discoveries?.removeEventListener("pointerleave", resetDiscoveryPointer);
       window.removeEventListener("scroll", handleScroll);
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
       document.documentElement.classList.remove("motion-ready");

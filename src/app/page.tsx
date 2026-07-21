@@ -58,6 +58,25 @@ const quietThoughts = [
   ["다정함", "사람과 자연을 부드럽게 대하는 마음"],
 ];
 
+const motionStories = [
+  {
+    number: "하나",
+    title: "현실과 상상이 만나는 장면",
+    description:
+      "익숙한 풍경에 낯선 움직임이 더해질 때 새로운 이야기가 시작됩니다. 자연과 기술이 자연스럽게 이어지는 장면을 만들고 싶습니다.",
+    image: "/images/goat-meadow.jpg",
+    object: "glass-island",
+  },
+  {
+    number: "둘",
+    title: "나만의 고요한 공간 만들기",
+    description:
+      "잠시 머무는 것만으로도 마음이 편안해지는 공간을 상상합니다. 빛과 여백, 느린 움직임으로 차분한 분위기를 담고 싶습니다.",
+    image: "/images/sleeping.jpg",
+    object: "glass-pyramid",
+  },
+];
+
 const values = [
   {
     number: "01",
@@ -220,6 +239,15 @@ export default function Home() {
 
       <section id="discoveries" className="discoveries-section">
         <div className="discoveries-glow" aria-hidden="true" />
+        <div className="ambient-sculpture ambient-triangle" aria-hidden="true">
+          <span /><span /><span />
+        </div>
+        <div className="ambient-sculpture ambient-orb" aria-hidden="true">
+          <span />
+        </div>
+        <div className="ambient-sculpture ambient-helix" aria-hidden="true">
+          <span /><span /><span />
+        </div>
         <div className="discoveries-inner page-container">
           <div className="discoveries-heading">
             <p className="section-kicker" data-reveal="up">마음의 수집함</p>
@@ -238,17 +266,21 @@ export default function Home() {
               <span className="chrome-ring chrome-ring-three" />
             </div>
             <div className="thought-rail" aria-label="좋아하는 마음의 단어">
-              {quietThoughts.map(([title, description], index) => (
-                <article
-                  className="thought-card"
-                  data-tilt
-                  key={title}
-                  style={{ "--thought-index": index } as CSSProperties}
-                >
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                </article>
+              {[0, 1].map((group) => (
+                <div className="thought-group" aria-hidden={group === 1} key={group}>
+                  {quietThoughts.map(([title, description], index) => (
+                    <article
+                      className="thought-card"
+                      data-tilt
+                      key={`${group}-${title}`}
+                      style={{ "--thought-index": index } as CSSProperties}
+                    >
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                      <h3>{title}</h3>
+                      <p>{description}</p>
+                    </article>
+                  ))}
+                </div>
               ))}
             </div>
           </div>
@@ -285,6 +317,43 @@ export default function Home() {
                     <p>좋아할 마음 {String(index + 1).padStart(2, "0")}</p>
                     <h3>{card.title}</h3>
                     <div>{card.description}</div>
+                  </div>
+                </article>
+              </div>
+            ))}
+          </div>
+
+          <div className="motion-stories-heading">
+            <p className="section-kicker" data-reveal="up">움직이는 상상</p>
+            <h2 data-reveal="pop">좋아하는 장면에 움직임을 더합니다</h2>
+            <p data-reveal="up" data-delay="1">
+              사진과 글에 입체적인 움직임이 더해지면
+              <br />평범했던 순간도 오래 기억되는 장면이 됩니다.
+            </p>
+          </div>
+
+          <div className="motion-story-grid">
+            {motionStories.map((story, index) => (
+              <div
+                className="motion-story-card-wrap"
+                data-reveal="up"
+                data-delay={String(index)}
+                key={story.title}
+              >
+                <article className="motion-story-card" data-tilt>
+                  <Image
+                    src={story.image}
+                    alt={`${story.title} 배경`}
+                    fill
+                    sizes="(max-width: 760px) 94vw, 50vw"
+                  />
+                  <div className={`story-object ${story.object}`} aria-hidden="true">
+                    <span /><span /><span />
+                  </div>
+                  <div className="motion-story-copy">
+                    <span>장면 {story.number}</span>
+                    <h3>{story.title}</h3>
+                    <p>{story.description}</p>
                   </div>
                 </article>
               </div>
