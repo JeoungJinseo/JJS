@@ -66,7 +66,17 @@ export default function Home() {
           </a>
         </header>
 
-        <div className="chrome-hello" aria-hidden="true">hello</div>
+        <div className="chrome-hello" aria-hidden="true">
+          <div className="chrome-hello-reveal">
+            <Image
+              src="/images/hello-chrome.png"
+              alt=""
+              fill
+              priority
+              sizes="(max-width: 600px) 96vw, 1380px"
+            />
+          </div>
+        </div>
 
         <div className="hero-copy page-container">
           <h1 id="hero-title">
