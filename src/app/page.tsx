@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import MotionEffects from "./MotionEffects";
 
 const favoriteCards = [
@@ -20,6 +21,41 @@ const favoriteCards = [
     image: "/images/running.jpg",
     position: "center center",
   },
+];
+
+const discoveryCards = [
+  {
+    category: "밤하늘",
+    title: "별자리를 천천히 찾는 밤",
+    description:
+      "별 하나를 오래 바라보다 보면 시간도 조금 느리게 흐르는 것 같습니다. 이름 모를 별을 찾아보는 조용한 밤을 좋아합니다.",
+    image: "/images/starfield-v2.png",
+    position: "center center",
+  },
+  {
+    category: "산책",
+    title: "낯선 풍경 속을 천천히 걷기",
+    description:
+      "정해진 목적지 없이 걷다 만나는 빛과 바람을 기억합니다. 익숙하지 않은 풍경은 새로운 생각을 열어 줍니다.",
+    image: "/images/mountain-meadow.jpg",
+    position: "center 42%",
+  },
+  {
+    category: "자연",
+    title: "동물과 자연을 가까이 관찰하기",
+    description:
+      "말없이 곁을 지키는 생명들을 보고 있으면 마음이 부드러워집니다. 자연의 작은 표정까지 천천히 바라보고 싶습니다.",
+    image: "/images/goat-meadow.jpg",
+    position: "center 48%",
+  },
+];
+
+const quietThoughts = [
+  ["천천히", "급하지 않아도 괜찮다는 마음"],
+  ["호기심", "처음 보는 것을 오래 바라보는 태도"],
+  ["기록", "금방 지나갈 장면을 기억하는 방법"],
+  ["여유", "잠시 멈춰 주변을 살피는 시간"],
+  ["다정함", "사람과 자연을 부드럽게 대하는 마음"],
 ];
 
 const values = [
@@ -44,7 +80,7 @@ const features = [
   ["▣", "꾸준히 살아가고 싶어요"],
   ["✓", "신뢰받는 사람이 되고 싶어요"],
   ["☺", "피그마를 좋아해요"],
-  ["T", "계속 성장하고 싶어요"],
+  ["가", "계속 성장하고 싶어요"],
   ["✦", "새로운 것을 좋아해요"],
 ];
 
@@ -55,16 +91,16 @@ export default function Home() {
       <section className="intro-section" aria-labelledby="hero-title">
         <header className="site-header page-container">
           <a className="wordmark" href="#home" aria-label="홈으로 이동">
-            Jinseo Jeoung
+            정진서
           </a>
           <nav className="main-nav" aria-label="주요 메뉴">
-            <a href="#home">Home</a>
-            <a href="#space">Features</a>
-            <a href="#favorites">Devices</a>
-            <a href="#meadow">Support</a>
+            <a href="#home">홈</a>
+            <a href="#space">우주</a>
+            <a href="#favorites">취향</a>
+            <a href="#meadow">초원</a>
           </nav>
           <a className="login-button" href="#footer">
-            Login
+            마무리
           </a>
         </header>
 
@@ -157,7 +193,7 @@ export default function Home() {
               일상에서 저를 편안하게 만들고,
               <br />다시 움직일 힘을 주는 세 가지 순간을 골라보았습니다.
             </p>
-            <a href="#favorite-cards" data-reveal="up" data-delay="2">MY FAVORITES</a>
+            <a href="#favorite-cards" data-reveal="up" data-delay="2">좋아하는 순간 보기</a>
           </div>
 
           <div id="favorite-cards" className="favorites-grid">
@@ -177,6 +213,81 @@ export default function Home() {
                   <p data-reveal="up" data-delay="1">{card.description}</p>
                 </div>
               </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="discoveries" className="discoveries-section">
+        <div className="discoveries-glow" aria-hidden="true" />
+        <div className="discoveries-inner page-container">
+          <div className="discoveries-heading">
+            <p className="section-kicker" data-reveal="up">마음의 수집함</p>
+            <h2 data-reveal="pop">마음을 움직이는 장면들</h2>
+            <p data-reveal="up" data-delay="1">
+              거창하지 않아도 오래 기억에 남는 순간이 있습니다.
+              <br />저를 편안하게 만드는 감각과 생각을 한곳에 모았습니다.
+            </p>
+          </div>
+
+          <div className="thought-stage" data-reveal="pop">
+            <div className="chrome-orbit" aria-hidden="true">
+              <span className="chrome-core" />
+              <span className="chrome-ring chrome-ring-one" />
+              <span className="chrome-ring chrome-ring-two" />
+              <span className="chrome-ring chrome-ring-three" />
+            </div>
+            <div className="thought-rail" aria-label="좋아하는 마음의 단어">
+              {quietThoughts.map(([title, description], index) => (
+                <article
+                  className="thought-card"
+                  data-tilt
+                  key={title}
+                  style={{ "--thought-index": index } as CSSProperties}
+                >
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="scene-heading">
+            <p className="section-kicker" data-reveal="up">더 좋아할 것 같은 순간</p>
+            <h2 data-reveal="pop">새로운 취향을 발견하는 중입니다</h2>
+            <p data-reveal="up" data-delay="1">
+              좋아하는 마음은 계속 넓어진다고 믿습니다.
+              <br />앞으로 더 자주 만나고 싶은 세 가지 장면입니다.
+            </p>
+          </div>
+
+          <div className="discovery-grid">
+            {discoveryCards.map((card, index) => (
+              <div
+                className="discovery-card-wrap"
+                data-reveal="up"
+                data-delay={String(index)}
+                key={card.title}
+              >
+                <article className="discovery-card" data-tilt>
+                  <div className="discovery-image">
+                    <Image
+                      src={card.image}
+                      alt={`${card.title} 풍경`}
+                      fill
+                      sizes="(max-width: 760px) 92vw, 33vw"
+                      style={{ objectPosition: card.position }}
+                    />
+                    <span>{card.category}</span>
+                  </div>
+                  <div className="discovery-copy">
+                    <p>좋아할 마음 {String(index + 1).padStart(2, "0")}</p>
+                    <h3>{card.title}</h3>
+                    <div>{card.description}</div>
+                  </div>
+                </article>
+              </div>
             ))}
           </div>
         </div>

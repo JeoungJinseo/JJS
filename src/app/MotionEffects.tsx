@@ -35,6 +35,12 @@ export default function MotionEffects() {
 
     const intro = document.querySelector<HTMLElement>(".intro-section");
     const space = document.querySelector<HTMLElement>(".space-section");
+    const discoveries = document.querySelector<HTMLElement>(
+      ".discoveries-section",
+    );
+    const tiltTargets = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-tilt]"),
+    );
     let animationFrame = 0;
 
     const updateParallax = () => {
@@ -53,6 +59,15 @@ export default function MotionEffects() {
         );
         space.style.setProperty("--cosmic-parallax", `${progress}px`);
       }
+
+      if (discoveries) {
+        const rect = discoveries.getBoundingClientRect();
+        const progress = Math.max(
+          -90,
+          Math.min(90, (window.innerHeight * 0.5 - rect.top) * 0.035),
+        );
+        discoveries.style.setProperty("--discovery-scroll", `${progress}px`);
+      }
     };
 
     const handleScroll = () => {
@@ -63,8 +78,32 @@ export default function MotionEffects() {
     updateParallax();
     window.addEventListener("scroll", handleScroll, { passive: true });
 
+    const tiltCleanups = tiltTargets.map((target) => {
+      const handlePointerMove = (event: PointerEvent) => {
+        const rect = target.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        target.style.setProperty("--tilt-x", `${y * -10}deg`);
+        target.style.setProperty("--tilt-y", `${x * 12}deg`);
+      };
+
+      const resetTilt = () => {
+        target.style.setProperty("--tilt-x", "0deg");
+        target.style.setProperty("--tilt-y", "0deg");
+      };
+
+      target.addEventListener("pointermove", handlePointerMove);
+      target.addEventListener("pointerleave", resetTilt);
+
+      return () => {
+        target.removeEventListener("pointermove", handlePointerMove);
+        target.removeEventListener("pointerleave", resetTilt);
+      };
+    });
+
     return () => {
       observer.disconnect();
+      tiltCleanups.forEach((cleanup) => cleanup());
       window.removeEventListener("scroll", handleScroll);
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
       document.documentElement.classList.remove("motion-ready");
