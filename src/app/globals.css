@@ -52,18 +52,18 @@ a {
   background-repeat: no-repeat, repeat-y;
   background-size: 100% 100%, max(1983px, 100vw) auto;
   will-change: background-position;
-  animation: starfield-drift 55s ease-in-out infinite alternate;
+  animation: starfield-drift 18s linear infinite alternate;
 }
 
 @keyframes starfield-drift {
   0% {
-    background-position: center top, 49% 0;
+    background-position: center top, 47% 0;
   }
   50% {
-    background-position: center top, 51% 70px;
+    background-position: center top, 53% 110px;
   }
   100% {
-    background-position: center top, 48.5% 145px;
+    background-position: center top, 48% 220px;
   }
 }
 
@@ -360,7 +360,7 @@ a {
   filter: blur(38px);
   opacity: 0.34;
   transform: translate(-50%, -50%) scale(0.94);
-  animation: planet-aura 8.5s ease-in-out infinite;
+  animation: planet-aura 5.6s ease-in-out infinite;
 }
 
 .planet-wrap img {
@@ -374,7 +374,7 @@ a {
   transform: translateX(-50%);
   filter: saturate(1.14) contrast(1.07) brightness(0.97);
   will-change: filter;
-  animation: planet-image-glow 8.5s ease-in-out infinite;
+  animation: planet-image-glow 5.6s ease-in-out infinite;
 }
 
 @keyframes planet-image-glow {
@@ -384,8 +384,8 @@ a {
     filter: saturate(1.14) contrast(1.07) brightness(0.97);
   }
   50% {
-    transform: translateX(-50%) translateY(-7px) scale(1.008);
-    filter: saturate(1.3) contrast(1.1) brightness(1.08);
+    transform: translateX(-50%) translateY(-18px) scale(1.02);
+    filter: saturate(1.36) contrast(1.12) brightness(1.12);
   }
 }
 
@@ -396,8 +396,8 @@ a {
     transform: translate(-50%, -50%) scale(0.94);
   }
   50% {
-    opacity: 0.55;
-    transform: translate(-50%, -50%) scale(1.02);
+    opacity: 0.68;
+    transform: translate(-50%, -54%) scale(1.08);
   }
 }
 
@@ -488,25 +488,33 @@ a {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.52);
   border-radius: 30px;
-  background:
-    linear-gradient(90deg, rgba(26, 15, 17, 0.16), rgba(10, 23, 32, 0.36)),
-    url("/images/goat-meadow.jpg") center 65% / cover;
+  background: #152027;
   box-shadow: 0 34px 90px rgba(0, 0, 0, 0.34);
-  will-change: background-position;
-  animation: banner-background-pan 24s ease-in-out infinite alternate;
-}
-
-@keyframes banner-background-pan {
-  from {
-    background-position: center, center 58%;
-  }
-  to {
-    background-position: center, center 72%;
-  }
+  isolation: isolate;
 }
 
 .cosmic-banner::before {
   position: absolute;
+  z-index: 0;
+  inset: -6%;
+  background: url("/images/goat-meadow.jpg") center 65% / cover no-repeat;
+  content: "";
+  will-change: transform;
+  animation: animal-background-motion 6.5s ease-in-out infinite alternate;
+}
+
+@keyframes animal-background-motion {
+  from {
+    transform: translate3d(-1.8%, 1.2%, 0) scale(1.04) rotate(-0.2deg);
+  }
+  to {
+    transform: translate3d(2.2%, -1.8%, 0) scale(1.1) rotate(0.25deg);
+  }
+}
+
+.cosmic-banner::after {
+  position: absolute;
+  z-index: 1;
   inset: 0;
   background: linear-gradient(90deg, rgba(198, 103, 60, 0.35), rgba(23, 50, 63, 0.28));
   content: "";
@@ -548,6 +556,17 @@ a {
   overflow: hidden;
   border-radius: 26px;
   background: #07131b;
+  will-change: transform;
+  animation: screen-float 5.2s ease-in-out infinite alternate;
+}
+
+@keyframes screen-float {
+  from {
+    transform: translate3d(0, 5px, 0) rotate(-0.15deg);
+  }
+  to {
+    transform: translate3d(0, -8px, 0) rotate(0.15deg);
+  }
 }
 
 .banner-screen::after {
@@ -562,15 +581,15 @@ a {
   object-position: center 24%;
   filter: brightness(0.58) saturate(0.68) hue-rotate(8deg);
   will-change: transform;
-  animation: landscape-drift 15s ease-in-out infinite alternate;
+  animation: landscape-drift 6.8s ease-in-out infinite alternate;
 }
 
 @keyframes landscape-drift {
   from {
-    transform: scale(1.055) translate3d(-0.6%, 0.4%, 0);
+    transform: scale(1.08) translate3d(-2.4%, 1.5%, 0) rotate(-0.25deg);
   }
   to {
-    transform: scale(1.1) translate3d(0.8%, -1.2%, 0);
+    transform: scale(1.16) translate3d(2.8%, -2.2%, 0) rotate(0.25deg);
   }
 }
 
@@ -632,17 +651,17 @@ a {
   box-shadow: 0 26px 70px rgba(0, 0, 0, 0.25);
   color: #fff;
   will-change: transform;
-  animation: favorite-card-float 10s ease-in-out infinite alternate;
+  animation: favorite-card-float 4.8s ease-in-out infinite alternate;
 }
 
 .favorite-card:nth-child(2) {
-  animation-duration: 11.5s;
-  animation-delay: -4s;
+  animation-duration: 5.5s;
+  animation-delay: -2s;
 }
 
 .favorite-card:nth-child(3) {
-  animation-duration: 9s;
-  animation-delay: -7s;
+  animation-duration: 4.2s;
+  animation-delay: -3s;
 }
 
 @keyframes favorite-card-float {
@@ -650,7 +669,7 @@ a {
     transform: translateY(0);
   }
   to {
-    transform: translateY(-7px);
+    transform: translateY(-13px);
   }
 }
 
@@ -662,33 +681,55 @@ a {
 
 .favorite-image img {
   object-fit: cover;
-  scale: 1.045;
+  scale: 1.1;
+  transform-origin: 50% 55%;
   will-change: transform, scale;
-  animation: favorite-image-drift 13s ease-in-out infinite alternate;
+  animation: sleeping-motion 5s ease-in-out infinite alternate;
   transition: scale 650ms cubic-bezier(0.2, 0.7, 0.2, 1), filter 400ms ease;
 }
 
 .favorite-card:nth-child(2) .favorite-image img {
-  animation-duration: 15s;
-  animation-direction: alternate-reverse;
+  transform-origin: 68% 48%;
+  animation-name: eating-motion;
+  animation-duration: 4.3s;
 }
 
 .favorite-card:nth-child(3) .favorite-image img {
-  animation-duration: 11s;
-  animation-delay: -5s;
+  transform-origin: 65% 50%;
+  animation-name: person-motion;
+  animation-duration: 5.4s;
+  animation-delay: -2.5s;
 }
 
-@keyframes favorite-image-drift {
+@keyframes sleeping-motion {
   from {
-    transform: translate3d(-1.2%, 0.6%, 0);
+    transform: translate3d(-1.8%, 2.2%, 0) scale(1) rotate(-0.35deg);
   }
   to {
-    transform: translate3d(1.2%, -0.8%, 0);
+    transform: translate3d(1.8%, -2%, 0) scale(1.035) rotate(0.35deg);
+  }
+}
+
+@keyframes eating-motion {
+  from {
+    transform: translate3d(-3.2%, 1.8%, 0) scale(1) rotate(-0.5deg);
+  }
+  to {
+    transform: translate3d(3.2%, -1.8%, 0) scale(1.04) rotate(0.5deg);
+  }
+}
+
+@keyframes person-motion {
+  from {
+    transform: translate3d(3.5%, 1.5%, 0) scale(1.01) rotate(0.45deg);
+  }
+  to {
+    transform: translate3d(-3.5%, -2%, 0) scale(1.05) rotate(-0.45deg);
   }
 }
 
 .favorite-card:hover .favorite-image img {
-  scale: 1.085;
+  scale: 1.14;
   filter: brightness(1.06) saturate(1.05);
 }
 
@@ -721,15 +762,15 @@ a {
   background-size: auto 108%;
   background-repeat: no-repeat;
   will-change: background-position;
-  animation: meadow-background-pan 34s ease-in-out infinite alternate;
+  animation: meadow-background-pan 13s ease-in-out infinite alternate;
 }
 
 @keyframes meadow-background-pan {
   from {
-    background-position: 48% 0%;
+    background-position: 46.5% 0%;
   }
   to {
-    background-position: 52% 100%;
+    background-position: 53.5% 100%;
   }
 }
 
@@ -1082,6 +1123,8 @@ a {
   .space-section,
   .chrome-hello,
   .cosmic-banner,
+  .cosmic-banner::before,
+  .banner-screen,
   .banner-screen img,
   .favorite-card,
   .favorite-image img,
