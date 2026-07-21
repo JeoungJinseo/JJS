@@ -316,15 +316,63 @@ a {
   pointer-events: none;
 }
 
+.planet-wrap::after {
+  position: absolute;
+  z-index: 2;
+  top: 31%;
+  left: 50%;
+  width: min(1580px, 112vw);
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 42, 161, 0.28) 0%,
+    rgba(224, 0, 128, 0.15) 38%,
+    rgba(148, 0, 116, 0.06) 58%,
+    transparent 76%
+  );
+  content: "";
+  mix-blend-mode: screen;
+  filter: blur(38px);
+  opacity: 0.34;
+  transform: translate(-50%, -50%) scale(0.94);
+  animation: planet-aura 8.5s ease-in-out infinite;
+}
+
 .planet-wrap img {
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 50%;
   width: max(1600px, 126vw);
   max-width: none;
   height: auto;
   transform: translateX(-50%);
-  filter: saturate(1.15) contrast(1.08);
+  filter: saturate(1.14) contrast(1.07) brightness(0.97);
+  will-change: filter;
+  animation: planet-image-glow 8.5s ease-in-out infinite;
+}
+
+@keyframes planet-image-glow {
+  0%,
+  100% {
+    filter: saturate(1.14) contrast(1.07) brightness(0.97);
+  }
+  50% {
+    filter: saturate(1.3) contrast(1.1) brightness(1.08);
+  }
+}
+
+@keyframes planet-aura {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+  50% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
 }
 
 .feature-strip {
@@ -934,6 +982,17 @@ a {
   .chrome-hello-reveal::after,
   .chrome-hello::after {
     display: none;
+    animation: none;
+  }
+
+  .planet-wrap img {
+    filter: saturate(1.22) contrast(1.08) brightness(1.03);
+    animation: none;
+  }
+
+  .planet-wrap::after {
+    opacity: 0.42;
+    transform: translate(-50%, -50%);
     animation: none;
   }
 }
