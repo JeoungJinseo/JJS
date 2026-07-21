@@ -342,11 +342,37 @@ export default function Home() {
       </section>
 
       <footer id="footer" className="site-footer">
-        <p data-reveal="pop">
-          좋아하는 것들을 하나씩 담아 완성한 페이지입니다.
-          <br />바이브 코딩으로 직접 만들며 많이 배우고 즐거웠습니다.
-          <br />끝까지 봐주셔서 감사합니다.
-        </p>
+        <div className="footer-orbit" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className="kinetic-footer-inner">
+          <p className="footer-kicker" data-reveal="up">
+            마지막 한마디
+          </p>
+          <div
+            className="kinetic-title"
+            aria-label="지피티로 자기소개를 만들어 매우 특이한 사람처럼 보일 수 있습니다."
+          >
+            <p className="kinetic-line kinetic-line-one" data-reveal="right">
+              <span>지피티로</span>
+            </p>
+            <p className="kinetic-line kinetic-line-two" data-reveal="pop" data-delay="1">
+              <span>자기소개를 만들어</span>
+            </p>
+            <p
+              className="kinetic-line kinetic-line-three kinetic-line-emphasis"
+              data-reveal="right"
+              data-delay="2"
+            >
+              <span>매우 특이한 사람처럼</span>
+            </p>
+            <p className="kinetic-line kinetic-line-four" data-reveal="pop" data-delay="3">
+              <span>보일 수 있습니다.</span>
+            </p>
+          </div>
+        </div>
       </footer>
     </main>
   );
